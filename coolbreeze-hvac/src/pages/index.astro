@@ -1,0 +1,236 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+
+const base = import.meta.env.BASE_URL;
+const phone = '(972) 555-0183';
+
+const services = [
+  {
+    title: 'AC Repair',
+    description: 'Fast diagnosis and repair for any make or model. Same-day service available when you need cooling most.',
+    href: `${base}/services/ac-repair`,
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`,
+    urgent: false,
+  },
+  {
+    title: 'Heating Repair',
+    description: 'Don\'t go cold. Our techs arrive ready to fix most heating problems in a single visit.',
+    href: `${base}/services/heating-repair`,
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/></svg>`,
+    urgent: false,
+  },
+  {
+    title: 'Furnace Repair',
+    description: 'Gas, electric, or heat pump furnaces. Certified to work on all major brands including Carrier, Lennox, and Trane.',
+    href: `${base}/services/furnace-repair`,
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`,
+    urgent: false,
+  },
+  {
+    title: 'Heat Pump',
+    description: 'Installation, repair, and maintenance for heat pump systems. Year-round efficiency for DFW homes.',
+    href: `${base}/services/heat-pump`,
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>`,
+    urgent: false,
+  },
+  {
+    title: 'New Installation',
+    description: 'Right-sized systems, professional installation, factory warranty. As a Carrier FAD, we offer exclusive pricing.',
+    href: `${base}/services/installation`,
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>`,
+    urgent: false,
+  },
+  {
+    title: 'Emergency Service',
+    description: '24/7 emergency response for existing CoolBreeze customers. Breakdowns don\'t keep business hours.',
+    href: `${base}/services/ac-repair`,
+    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+    urgent: true,
+  },
+];
+
+const reviews = [
+  { name: 'Jennifer M.', location: 'Frisco, TX', rating: 5, text: 'AC went out on a 104° day. CoolBreeze had a tech here within 3 hours. Fixed on the first visit. Couldn\'t be more grateful.' },
+  { name: 'David R.', location: 'Allen, TX', rating: 5, text: 'They\'ve serviced our system for 6 years. Always honest, always on time, and the CoolBreeze Club membership pays for itself every summer.' },
+  { name: 'Sarah K.', location: 'Plano, TX', rating: 5, text: 'New installation — they right-sized the unit, didn\'t try to upsell us, and the difference in our electric bill was immediate.' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HVACBusiness",
+      "name": "CoolBreeze HVAC & Air",
+      "url": "https://zingcontrol.github.io/Website-Intake-Framework/coolbreeze-hvac",
+      "telephone": "+19725550183",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "4521 Preston Road",
+        "addressLocality": "Plano",
+        "addressRegion": "TX",
+        "postalCode": "75093",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 33.0198,
+        "longitude": -96.6989
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "19:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "17:00" }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "194",
+        "bestRating": "5"
+      },
+      "priceRange": "$$",
+      "areaServed": ["Plano", "Frisco", "Allen", "McKinney", "Richardson"],
+      "hasCredential": ["NATE Certified", "Carrier Factory Authorized Dealer", "TX License HVAC12847"]
+    }
+  ]
+};
+---
+
+<Layout
+  title="HVAC Repair & Installation in Plano, TX"
+  description="CoolBreeze HVAC & Air — fast, reliable heating and cooling service for Dallas–Fort Worth. NATE-certified technicians. Carrier Factory Authorized Dealer. Call (972) 555-0183."
+  schema={schema}
+>
+  <Hero />
+  <TrustBar />
+
+  <!-- Services section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="section-heading">Everything Your HVAC System Needs</h2>
+        <p class="section-sub mx-auto text-center">From emergency repairs to full system installs — one call covers it all.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map(s => <ServiceCard {...s} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CoolBreeze Club CTA -->
+  <section class="py-20 bg-brand-gray">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-brand-navy rounded-3xl overflow-hidden">
+        <div class="grid md:grid-cols-2">
+          <div class="p-10 md:p-14">
+            <div class="inline-flex items-center gap-2 bg-brand-orange/20 text-brand-orange font-bold text-sm px-3 py-1.5 rounded-full mb-6">
+              ★ Best Value Plan
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+              CoolBreeze Club<br />Membership
+            </h2>
+            <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+              $149/year. Two tune-ups, priority scheduling, 15% off repairs, and
+              24/7 emergency access. Most members save $300+ in the first year.
+            </p>
+            <a
+              href={`${base}/coolbreeze-club`}
+              class="btn-primary"
+              onclick="trackEvent('cta_click', {location: 'club_section', cta: 'club_signup'})"
+            >
+              Join the Club — $149/yr
+            </a>
+          </div>
+          <div class="p-10 md:p-14 border-t md:border-t-0 md:border-l border-white/10">
+            <ul class="space-y-4">
+              {[
+                '2 seasonal tune-ups per year (spring + fall)',
+                'Priority same-day scheduling',
+                '15% discount on all repairs',
+                '24/7 emergency service line',
+                'Filter replacement reminders',
+                'No-charge system efficiency report',
+              ].map(item => (
+                <li class="flex items-start gap-3 text-gray-300">
+                  <svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <div class="flex text-yellow-400 text-xl">{'★★★★★'}</div>
+          <span class="font-extrabold text-2xl text-brand-navy">4.8</span>
+        </div>
+        <h2 class="section-heading">What DFW Homeowners Say</h2>
+        <p class="section-sub mx-auto text-center">194 verified Google reviews from your neighbors</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {reviews.map(r => (
+          <div class="card">
+            <div class="flex text-yellow-400 mb-3">{'★'.repeat(r.rating)}</div>
+            <p class="text-gray-700 leading-relaxed mb-4 italic">"{r.text}"</p>
+            <div class="font-semibold text-brand-navy">{r.name}</div>
+            <div class="text-sm text-gray-500">{r.location}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service areas -->
+  <section class="py-16 bg-brand-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="section-heading mb-3">Serving Dallas–Fort Worth</h2>
+      <p class="section-sub mx-auto text-center mb-8">We're local. Fast response times across the entire DFW metroplex.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        {[
+          { label: 'Frisco', href: `${base}/locations/frisco` },
+          { label: 'Allen', href: `${base}/locations/allen` },
+          { label: 'Plano', href: `${base}/locations/plano` },
+          { label: 'McKinney', href: `${base}/locations/mckinney` },
+          { label: 'Richardson', href: `${base}/locations/richardson` },
+        ].map(loc => (
+          <a
+            href={loc.href}
+            class="bg-white border border-brand-blue/20 text-brand-blue font-semibold px-5 py-2.5 rounded-full text-sm hover:bg-brand-blue hover:text-white transition-colors"
+          >
+            {loc.label}, TX
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 bg-brand-blue">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+        Ready to Book Service?
+      </h2>
+      <p class="text-blue-100 text-lg mb-8">
+        Same-day service available. Upfront pricing. No after-hours surprises.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href={`${base}/contact`} class="btn-primary" onclick="trackEvent('cta_click', {location: 'footer_cta', cta: 'book_service'})">
+          Book Service Today
+        </a>
+        <a href={`tel:9725550183`} class="btn-secondary" onclick="trackEvent('phone_click', {location: 'footer_cta'})">
+          Call {phone}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

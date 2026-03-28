@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
+const phone = '(972) 555-0183';
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Heating Repair",
+  "provider": { "@type": "HVACBusiness", "name": "CoolBreeze HVAC & Air", "telephone": "+19725550183" },
+  "areaServed": ["Plano", "Frisco", "Allen", "McKinney", "Richardson"],
+  "description": "Professional heating system service in Dallas-Fort Worth by NATE-certified technicians."
+};
+---
+
+<Layout
+  title="Heating Repair in Plano & DFW"
+  description="CoolBreeze HVAC — Heating Repair in Dallas-Fort Worth. NATE-certified, same-day available, all major brands. Carrier Factory Authorized. Call (972) 555-0183."
+  schema={schema}
+>
+  <section class="py-16 bg-brand-gray">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <nav class="text-sm text-gray-500 mb-6">
+        <a href={base || '/'} class="hover:text-brand-blue">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-800 font-medium">Heating Repair</span>
+      </nav>
+      <h1 class="section-heading mb-4">Heating Repair in Dallas–Fort Worth</h1>
+      <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl">
+        DFW winters hit harder than people expect. Don't go cold — our heating techs diagnose fast and carry common parts on every truck.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 mb-12">
+        <a href={`${base}/contact`} class="btn-primary" onclick="trackEvent('cta_click', {location: 'service_page', service: 'heating-repair', cta: 'book'})">
+          Book Heating Repair
+        </a>
+        <a href="tel:9725550183" class="btn-outline" onclick="trackEvent('phone_click', {location: 'service_page', service: 'heating-repair'})">
+          Call {phone}
+        </a>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        {['Same-day service available', 'Upfront pricing — no surprises', 'All major brands serviced',
+          'NATE-certified technicians', 'Carrier Factory Authorized', 'Parts stocked on every truck'].map(f => (
+          <div class="card flex items-start gap-3">
+            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium text-gray-700">{f}</span>
+          </div>
+        ))}
+      </div>
+      <div class="bg-brand-light rounded-2xl p-6 text-center">
+        <p class="text-sm font-semibold text-gray-600 mb-3">Serving all of DFW including:</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          {['Plano', 'Frisco', 'Allen', 'McKinney', 'Richardson', 'Prosper', 'Celina'].map(city => (
+            <span class="bg-white border border-brand-blue/20 text-brand-blue text-xs font-semibold px-3 py-1.5 rounded-full">{city}, TX</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

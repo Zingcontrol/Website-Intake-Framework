@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply text-gray-800 bg-white;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-brand-orange text-white font-bold px-6 py-4 rounded-lg text-base leading-none transition-all duration-150 hover:brightness-110 active:scale-95 shadow-md;
+    min-height: 56px;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-white text-white font-bold px-6 py-4 rounded-lg text-base leading-none transition-all duration-150 hover:bg-white hover:text-brand-navy active:scale-95;
+    min-height: 56px;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-brand-blue text-brand-blue font-bold px-6 py-4 rounded-lg text-base leading-none transition-all duration-150 hover:bg-brand-blue hover:text-white active:scale-95;
+    min-height: 56px;
+  }
+  .section-heading {
+    @apply text-3xl md:text-4xl font-extrabold text-brand-navy leading-tight;
+  }
+  .section-sub {
+    @apply text-lg text-gray-600 mt-3 max-w-2xl;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6 transition-shadow hover:shadow-md;
+  }
+  .trust-badge {
+    @apply flex items-center gap-2 text-sm font-semibold text-gray-700;
+  }
+}
