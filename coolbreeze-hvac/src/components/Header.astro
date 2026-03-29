@@ -114,7 +114,7 @@ const locations = [
   </div>
 
   {/* Mobile full-screen overlay */}
-  <div id="mobile-menu" class="fixed inset-0 bg-brand-navy/98 backdrop-blur-md z-40 hidden lg:hidden flex-col pt-20 px-6">
+  <div id="mobile-menu" class="fixed inset-0 z-40 hidden lg:hidden flex-col pt-20 px-6 overflow-y-auto" style="background: rgba(10,37,64,0.98);">
     <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
       <div class="text-label text-brand-orange uppercase mb-2 mt-4">Services</div>
       {services.map((item, i) => (
