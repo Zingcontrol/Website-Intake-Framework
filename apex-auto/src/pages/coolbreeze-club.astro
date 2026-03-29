@@ -8,63 +8,78 @@ import TestimonialCarousel from '../components/TestimonialCarousel.astro';
 import { testimonials } from '../data/testimonials';
 
 const base = import.meta.env.BASE_URL;
-const phone = '(972) 555-0183';
+const phone = '(972) 555-0247';
 
-const clubReviews = testimonials.filter(t => t.service === 'CoolBreeze Club' || t.service === 'Maintenance');
-const allReviews = clubReviews.length >= 3 ? clubReviews : testimonials.slice(0, 3);
+const planReviews = testimonials.filter(t => t.service === 'Apex Care Plan' || t.service === 'Oil Change');
+const allReviews = planReviews.length >= 2 ? planReviews : testimonials.slice(0, 3);
 
 const tiers = [
   {
-    name: 'One-Time Service',
-    price: '$89',
-    description: 'Per tune-up, no commitment.',
+    name: 'Pay Per Visit',
+    price: '$49',
+    description: 'Per oil change, no commitment.',
     features: [
-      { text: '1 seasonal tune-up', included: true },
+      { text: 'Oil change + filter', included: true },
       { text: 'Multi-point inspection', included: true },
+      { text: 'Tire rotation', included: false },
       { text: 'Priority scheduling', included: false },
-      { text: 'Repair discount', included: false },
-      { text: '24/7 emergency line', included: false },
-      { text: 'Filter reminders', included: false },
+      { text: '10% off repairs', included: false },
+      { text: 'Annual vehicle report', included: false },
     ],
-    ctaLabel: 'Book a Tune-Up',
+    ctaLabel: 'Book a Visit',
     ctaHref: `${base}/contact`,
   },
   {
-    name: 'CoolBreeze Club',
-    price: '$149',
+    name: 'Apex Care Plan',
+    price: '$199',
     period: 'year',
     description: '$450+ value. No contracts.',
     highlighted: true,
     ribbon: 'Best Value',
     features: [
-      { text: '2 seasonal tune-ups per year', included: true },
-      { text: 'Multi-point inspection', included: true },
+      { text: '4 oil changes per year', included: true },
+      { text: 'Free tire rotation every visit', included: true },
       { text: 'Priority same-day scheduling', included: true },
-      { text: '15% off all repairs', included: true },
-      { text: '24/7 emergency line', included: true },
-      { text: 'Filter replacement reminders', included: true },
+      { text: '10% off all repairs', included: true },
+      { text: 'Free annual inspection', included: true },
+      { text: 'Annual vehicle health report', included: true },
     ],
-    ctaLabel: 'Join the Club',
+    ctaLabel: 'Join the Plan',
     ctaHref: `${base}/contact`,
   },
 ];
 
-const clubFaqs = [
-  { question: 'Can I cancel anytime?', answer: 'Yes. There are no long-term contracts. You can cancel your CoolBreeze Club membership at any time with no cancellation fees.' },
-  { question: 'When do tune-ups happen?', answer: 'We schedule one tune-up in the spring (cooling system prep) and one in the fall (heating system prep). You\'ll receive a reminder call or text to schedule at your convenience.' },
-  { question: 'Does the 15% discount apply to parts and labor?', answer: 'Yes. The 15% repair discount applies to both parts and labor on any repair service, with no cap.' },
-  { question: 'What does the 24/7 emergency line cover?', answer: 'Club members get access to our dedicated emergency line. A technician will be dispatched at any hour — nights, weekends, holidays — with no overtime charges.' },
-  { question: 'Can I add multiple systems?', answer: 'Absolutely. Each additional system on the same membership is $99/year. Most homes have one system, but if you have separate units for upstairs/downstairs, we\'ve got you covered.' },
+const planFaqs = [
+  {
+    question: 'Can I cancel anytime?',
+    answer: 'Yes. The Apex Care Plan is month-to-month with no long-term contracts. You can cancel at any time with no cancellation fees. We are confident you will stay because the plan pays for itself.'
+  },
+  {
+    question: 'What oil types are covered?',
+    answer: 'Conventional, synthetic blend, and full synthetic oil changes are all covered under the plan. We use the oil type specified by your vehicle manufacturer at no upcharge.'
+  },
+  {
+    question: 'Does the 10% discount apply to parts and labor?',
+    answer: 'Yes. The 10% repair discount applies to both parts and labor on any service, with no cap on the discount amount and no excluded services.'
+  },
+  {
+    question: 'What is the annual vehicle inspection?',
+    answer: 'Once per year, a certified technician performs a comprehensive inspection of your brakes, suspension, tires, fluids, belts, hoses, and electrical system. You receive a written report with any findings and our honest recommendation on what needs attention now vs. what can wait.'
+  },
+  {
+    question: 'Can I use the plan for multiple vehicles?',
+    answer: 'Each plan covers one vehicle. You can add a second vehicle at a discounted rate of $149/year. Ask our service advisor when you sign up.'
+  },
 ];
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "Product",
-  "name": "CoolBreeze Club Maintenance Plan",
-  "description": "Annual HVAC maintenance membership — 2 tune-ups, priority scheduling, 15% repair discount, 24/7 emergency access.",
+  "name": "Apex Care Plan — Annual Auto Maintenance",
+  "description": "Annual auto maintenance plan — 4 oil changes, free tire rotations, 10% off all repairs, priority scheduling, and an annual vehicle inspection report.",
   "offers": {
     "@type": "Offer",
-    "price": "149",
+    "price": "199",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock",
   },
@@ -72,15 +87,15 @@ const schema = {
 ---
 
 <Layout
-  title="CoolBreeze Club Maintenance Plan"
-  description="CoolBreeze Club — $149/year. Two seasonal tune-ups, priority scheduling, 15% off repairs, and 24/7 emergency access. No contracts, cancel anytime."
+  title="Apex Care Plan — Annual Auto Maintenance"
+  description="Apex Care Plan — $199/year. Four oil changes, free tire rotations every visit, 10% off all repairs, and priority scheduling. No contracts, cancel anytime. Serving Plano & DFW."
   schema={schema}
 >
   <Hero
-    headline="The CoolBreeze Club"
+    headline="The Apex Care Plan"
     highlightText=""
-    subheadline="One membership covers your HVAC system year-round. Two tune-ups, priority service, 15% off repairs, and 24/7 emergency access — all for $149/year."
-    bgImage="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
+    subheadline="Four oil changes, free tire rotations, 10% off all repairs, and priority scheduling — all for $199/year. Your car covered, year-round."
+    bgImage="https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=1920&q=80"
     showStats={false}
     compact={true}
   />
@@ -91,24 +106,24 @@ const schema = {
   <section class="py-16 bg-white" aria-label="Value comparison">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center" data-animate="fade-up">
       <h2 class="section-heading mb-4">The Math Is Simple</h2>
-      <p class="section-sub mx-auto mb-12">See what you'd pay without the Club vs. what members pay.</p>
+      <p class="section-sub mx-auto mb-12">See what you'd pay per visit vs. what plan members pay.</p>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
         <div class="card--bordered p-6 text-center">
-          <div class="text-sm text-gray-500 mb-1">2 Tune-Ups</div>
-          <div class="text-2xl font-extrabold text-brand-navy">$178</div>
-          <div class="text-xs text-gray-400">at $89 each</div>
+          <div class="text-sm text-gray-500 mb-1">4 Oil Changes</div>
+          <div class="text-2xl font-extrabold text-brand-charcoal">$196</div>
+          <div class="text-xs text-gray-400">at $49 each</div>
         </div>
         <div class="text-4xl font-extrabold text-gray-300 hidden md:block">+</div>
         <div class="card--bordered p-6 text-center">
-          <div class="text-sm text-gray-500 mb-1">15% Repair Savings</div>
-          <div class="text-2xl font-extrabold text-brand-navy">$150+</div>
+          <div class="text-sm text-gray-500 mb-1">10% Repair Savings</div>
+          <div class="text-2xl font-extrabold text-brand-charcoal">$150+</div>
           <div class="text-xs text-gray-400">avg savings/year</div>
         </div>
       </div>
       <div class="mt-8 bg-brand-light rounded-card p-6 inline-block">
         <span class="text-gray-600">Total value: </span>
-        <span class="text-xl font-extrabold text-brand-navy line-through mr-2">$450+</span>
-        <span class="text-xl font-extrabold text-brand-orange">You pay $149/year</span>
+        <span class="text-xl font-extrabold text-brand-charcoal line-through mr-2">$450+</span>
+        <span class="text-xl font-extrabold text-brand-orange">You pay $199/year</span>
       </div>
     </div>
   </section>
@@ -126,14 +141,14 @@ const schema = {
   {/* Testimonials */}
   <TestimonialCarousel
     reviews={allReviews}
-    heading="What Club Members Say"
-    subheading="Real reviews from CoolBreeze Club members."
+    heading="What Our Customers Say"
+    subheading="Real reviews from Apex Auto drivers."
   />
 
   {/* FAQ */}
   <FAQAccordion
-    items={clubFaqs}
-    heading="Club FAQs"
-    subheading="Everything you need to know about the CoolBreeze Club."
+    items={planFaqs}
+    heading="Apex Care Plan FAQs"
+    subheading="Everything you need to know about the plan."
   />
 </Layout>
