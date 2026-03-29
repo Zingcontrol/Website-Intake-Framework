@@ -1,68 +1,139 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import PricingBlock from '../components/PricingBlock.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import TestimonialCarousel from '../components/TestimonialCarousel.astro';
+import { testimonials } from '../data/testimonials';
+
 const base = import.meta.env.BASE_URL;
 const phone = '(972) 555-0183';
+
+const clubReviews = testimonials.filter(t => t.service === 'CoolBreeze Club' || t.service === 'Maintenance');
+const allReviews = clubReviews.length >= 3 ? clubReviews : testimonials.slice(0, 3);
+
+const tiers = [
+  {
+    name: 'One-Time Service',
+    price: '$89',
+    description: 'Per tune-up, no commitment.',
+    features: [
+      { text: '1 seasonal tune-up', included: true },
+      { text: 'Multi-point inspection', included: true },
+      { text: 'Priority scheduling', included: false },
+      { text: 'Repair discount', included: false },
+      { text: '24/7 emergency line', included: false },
+      { text: 'Filter reminders', included: false },
+    ],
+    ctaLabel: 'Book a Tune-Up',
+    ctaHref: `${base}/contact`,
+  },
+  {
+    name: 'CoolBreeze Club',
+    price: '$149',
+    period: 'year',
+    description: '$450+ value. No contracts.',
+    highlighted: true,
+    ribbon: 'Best Value',
+    features: [
+      { text: '2 seasonal tune-ups per year', included: true },
+      { text: 'Multi-point inspection', included: true },
+      { text: 'Priority same-day scheduling', included: true },
+      { text: '15% off all repairs', included: true },
+      { text: '24/7 emergency line', included: true },
+      { text: 'Filter replacement reminders', included: true },
+    ],
+    ctaLabel: 'Join the Club',
+    ctaHref: `${base}/contact`,
+  },
+];
+
+const clubFaqs = [
+  { question: 'Can I cancel anytime?', answer: 'Yes. There are no long-term contracts. You can cancel your CoolBreeze Club membership at any time with no cancellation fees.' },
+  { question: 'When do tune-ups happen?', answer: 'We schedule one tune-up in the spring (cooling system prep) and one in the fall (heating system prep). You\'ll receive a reminder call or text to schedule at your convenience.' },
+  { question: 'Does the 15% discount apply to parts and labor?', answer: 'Yes. The 15% repair discount applies to both parts and labor on any repair service, with no cap.' },
+  { question: 'What does the 24/7 emergency line cover?', answer: 'Club members get access to our dedicated emergency line. A technician will be dispatched at any hour — nights, weekends, holidays — with no overtime charges.' },
+  { question: 'Can I add multiple systems?', answer: 'Absolutely. Each additional system on the same membership is $99/year. Most homes have one system, but if you have separate units for upstairs/downstairs, we\'ve got you covered.' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "CoolBreeze Club Maintenance Plan",
+  "description": "Annual HVAC maintenance membership — 2 tune-ups, priority scheduling, 15% repair discount, 24/7 emergency access.",
+  "offers": {
+    "@type": "Offer",
+    "price": "149",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+  },
+};
 ---
 
 <Layout
   title="CoolBreeze Club Maintenance Plan"
-  description="CoolBreeze Club — $149/year. Two seasonal tune-ups, priority scheduling, 15% off repairs, and 24/7 emergency access. Join today."
+  description="CoolBreeze Club — $149/year. Two seasonal tune-ups, priority scheduling, 15% off repairs, and 24/7 emergency access. No contracts, cancel anytime."
+  schema={schema}
 >
-  <section class="py-20 bg-brand-navy">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-      <div class="inline-flex items-center gap-2 bg-brand-orange/20 text-brand-orange font-bold text-sm px-4 py-2 rounded-full mb-6 border border-brand-orange/30">
-        ★ Best Value · Most Popular Plan
+  <Hero
+    headline="The CoolBreeze Club"
+    highlightText=""
+    subheadline="One membership covers your HVAC system year-round. Two tune-ups, priority service, 15% off repairs, and 24/7 emergency access — all for $149/year."
+    bgImage="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
+    showStats={false}
+    compact={true}
+  />
+
+  <TrustBar />
+
+  {/* Value Calculator */}
+  <section class="py-16 bg-white" aria-label="Value comparison">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center" data-animate="fade-up">
+      <h2 class="section-heading mb-4">The Math Is Simple</h2>
+      <p class="section-sub mx-auto mb-12">See what you'd pay without the Club vs. what members pay.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+        <div class="card--bordered p-6 text-center">
+          <div class="text-sm text-gray-500 mb-1">2 Tune-Ups</div>
+          <div class="text-2xl font-extrabold text-brand-navy">$178</div>
+          <div class="text-xs text-gray-400">at $89 each</div>
+        </div>
+        <div class="text-4xl font-extrabold text-gray-300 hidden md:block">+</div>
+        <div class="card--bordered p-6 text-center">
+          <div class="text-sm text-gray-500 mb-1">15% Repair Savings</div>
+          <div class="text-2xl font-extrabold text-brand-navy">$150+</div>
+          <div class="text-xs text-gray-400">avg savings/year</div>
+        </div>
       </div>
-      <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">CoolBreeze Club</h1>
-      <p class="text-xl text-gray-300 mb-3">$149 / year</p>
-      <p class="text-gray-400 max-w-xl mx-auto mb-10">
-        One flat annual fee. Two tune-ups, priority scheduling, repair discounts, and 24/7 emergency access.
-        Most members save over $300 in year one.
-      </p>
-      <a
-        href={`${base}/contact`}
-        class="btn-primary text-base px-8"
-        onclick="trackEvent('cta_click', {location: 'club_page', cta: 'club_signup'})"
-      >
-        Join the Club — $149/year
-      </a>
+      <div class="mt-8 bg-brand-light rounded-card p-6 inline-block">
+        <span class="text-gray-600">Total value: </span>
+        <span class="text-xl font-extrabold text-brand-navy line-through mr-2">$450+</span>
+        <span class="text-xl font-extrabold text-brand-orange">You pay $149/year</span>
+      </div>
     </div>
   </section>
 
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <h2 class="section-heading text-center mb-12">Everything Included</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        {[
-          { title: '2 Seasonal Tune-Ups', desc: 'One in spring (AC prep) and one in fall (heating prep). We come to you — no scheduling stress.' },
-          { title: 'Priority Same-Day Scheduling', desc: 'Club members move to the front of the line. No waiting 3 days when it\'s 100° outside.' },
-          { title: '15% Off All Repairs', desc: 'Every service call, every repair, every time. Adds up fast on major work.' },
-          { title: '24/7 Emergency Line', desc: 'Dedicated emergency number for existing customers. Not an answering service — a real tech.' },
-          { title: 'Filter Replacement Reminders', desc: 'We track your filter schedule and send reminders so you don\'t have to remember.' },
-          { title: 'Annual System Report', desc: 'After each tune-up, a written efficiency report with recommendations — no surprise upsell pressure.' },
-        ].map(item => (
-          <div class="card flex gap-4">
-            <div class="w-10 h-10 rounded-xl bg-brand-light flex items-center justify-center text-brand-blue flex-shrink-0">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-bold text-brand-navy mb-1">{item.title}</h3>
-              <p class="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
-            </div>
-          </div>
-        ))}
+  {/* Pricing Comparison */}
+  <section class="py-20 bg-brand-gray" aria-label="Pricing">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12" data-animate="fade-up">
+        <h2 class="section-heading--accent mx-auto">Choose Your Plan</h2>
       </div>
-
-      <div class="mt-12 bg-brand-gray rounded-2xl p-8 text-center">
-        <p class="text-gray-600 mb-2 text-sm">Average cost of a single tune-up: <strong class="text-gray-800">$89–$129</strong></p>
-        <p class="text-gray-600 mb-2 text-sm">Two tune-ups alone: <strong class="text-gray-800">$178–$258 value</strong></p>
-        <p class="text-gray-600 mb-6 text-sm">Club membership: <strong class="text-brand-blue text-base">$149/year</strong></p>
-        <a href={`${base}/contact`} class="btn-primary" onclick="trackEvent('cta_click', {location: 'club_value_section', cta: 'club_signup'})">
-          Join Today — $149/year
-        </a>
-      </div>
+      <PricingBlock tiers={tiers} />
     </div>
   </section>
+
+  {/* Testimonials */}
+  <TestimonialCarousel
+    reviews={allReviews}
+    heading="What Club Members Say"
+    subheading="Real reviews from CoolBreeze Club members."
+  />
+
+  {/* FAQ */}
+  <FAQAccordion
+    items={clubFaqs}
+    heading="Club FAQs"
+    subheading="Everything you need to know about the CoolBreeze Club."
+  />
 </Layout>

@@ -1,0 +1,37 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: BreadcrumbItem[];
+}
+const { items } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const schemaItems = items.map((item, i) => ({
+  "@type": "ListItem",
+  "position": i + 1,
+  "name": item.label,
+  ...(item.href ? { "item": `https://zingcontrol.github.io${item.href}` } : {}),
+}));
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": schemaItems,
+};
+---
+
+<nav aria-label="Breadcrumb" class="text-sm text-gray-500 mb-6">
+  {items.map((item, i) => (
+    <>
+      {i > 0 && <span class="mx-2">/</span>}
+      {item.href ? (
+        <a href={item.href} class="hover:text-brand-blue transition-colors">{item.label}</a>
+      ) : (
+        <span class="text-gray-800 font-medium">{item.label}</span>
+      )}
+    </>
+  ))}
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

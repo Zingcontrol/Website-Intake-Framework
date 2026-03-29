@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import StickyCTABar from '../components/StickyCTABar.astro';
 import Footer from '../components/Footer.astro';
+import ScrollAnimator from '../components/ScrollAnimator.astro';
 
 export interface Props {
   title: string;
@@ -10,10 +11,14 @@ export interface Props {
   canonicalUrl?: string;
   schema?: object;
   noindex?: boolean;
+  ogImage?: string;
 }
 
-const { title, description, canonicalUrl, schema, noindex = false } = Astro.props;
+const { title, description, canonicalUrl, schema, noindex = false, ogImage } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const siteUrl = 'https://zingcontrol.github.io';
+const fullTitle = `${title} | CoolBreeze HVAC & Air`;
+const ogImageUrl = ogImage || `https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80`;
 ---
 
 <!doctype html>
@@ -24,10 +29,22 @@ const base = import.meta.env.BASE_URL;
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
-    <title>{title} | CoolBreeze HVAC & Air</title>
+    <title>{fullTitle}</title>
 
     {schema && (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
@@ -41,7 +58,6 @@ const base = import.meta.env.BASE_URL;
       gtag('js', new Date());
       gtag('config', 'G-XXXXXXXXXX');
 
-      // Conversion events
       window.trackEvent = function(eventName, params = {}) {
         gtag('event', eventName, params);
       };
@@ -54,5 +70,6 @@ const base = import.meta.env.BASE_URL;
     </main>
     <StickyCTABar />
     <Footer />
+    <ScrollAnimator />
   </body>
 </html>

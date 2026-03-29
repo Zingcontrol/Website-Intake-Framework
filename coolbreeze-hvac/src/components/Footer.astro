@@ -3,7 +3,7 @@ const base = import.meta.env.BASE_URL;
 const phone = '(972) 555-0183';
 const year = new Date().getFullYear();
 
-const services = [
+const serviceLinks = [
   { label: 'AC Repair', href: `${base}/services/ac-repair` },
   { label: 'Heating Repair', href: `${base}/services/heating-repair` },
   { label: 'Furnace Repair', href: `${base}/services/furnace-repair` },
@@ -12,20 +12,47 @@ const services = [
   { label: 'Maintenance', href: `${base}/services/maintenance` },
 ];
 
-const locations = [
+const locationLinks = [
+  { label: 'Plano', href: `${base}/locations/plano` },
   { label: 'Frisco', href: `${base}/locations/frisco` },
   { label: 'Allen', href: `${base}/locations/allen` },
-  { label: 'Plano', href: `${base}/locations/plano` },
   { label: 'McKinney', href: `${base}/locations/mckinney` },
   { label: 'Richardson', href: `${base}/locations/richardson` },
 ];
 ---
 
+{/* Pre-footer CTA */}
+<section class="bg-gradient-to-r from-brand-blue to-brand-blue-dark py-16" aria-label="Call to action">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center" data-animate="fade-up">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Your Comfort, Our Priority</h2>
+    <p class="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">Whether it's an emergency repair or a planned installation, CoolBreeze is ready to help. DFW families trust us because we deliver — on time, on budget, every time.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href={`${base}/contact`} class="btn-primary text-base" onclick="trackEvent('cta_click', {location: 'footer_cta', cta: 'book_service'})">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Book Service Today
+      </a>
+      <a href={`tel:${phone.replace(/\D/g,'')}`} class="btn-secondary text-base" onclick="trackEvent('phone_click', {location: 'footer_cta'})">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+        Call {phone}
+      </a>
+    </div>
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-8 text-sm text-blue-200">
+      <span>Licensed & Insured</span>
+      <span>·</span>
+      <span>NATE Certified</span>
+      <span>·</span>
+      <span>Carrier Factory Authorized</span>
+      <span>·</span>
+      <span>TX #HVAC12847</span>
+    </div>
+  </div>
+</section>
+
 <footer class="bg-brand-navy text-gray-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
-      <!-- Brand -->
+      {/* Brand */}
       <div class="lg:col-span-1">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 rounded-full bg-brand-blue flex items-center justify-center text-white font-black text-lg">CB</div>
@@ -34,56 +61,60 @@ const locations = [
             <div class="text-brand-orange text-xs font-semibold">HVAC & Air</div>
           </div>
         </div>
-        <p class="text-sm leading-relaxed mb-4">
+        <p class="text-sm leading-relaxed mb-5">
           Serving Dallas–Fort Worth families since 2012. NATE-certified technicians, Carrier Factory Authorized Dealer.
         </p>
         <a
           href={`tel:${phone.replace(/\D/g,'')}`}
-          class="flex items-center gap-2 text-white font-bold hover:text-brand-orange transition-colors"
+          class="flex items-center gap-2 text-white font-bold hover:text-brand-orange transition-colors mb-6"
         >
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-          </svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
           {phone}
         </a>
+        {/* Social links */}
+        <div class="flex gap-3">
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-gray-400 hover:bg-brand-blue hover:text-white transition-all" aria-label="Facebook">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-gray-400 hover:bg-brand-blue hover:text-white transition-all" aria-label="Google Business">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-gray-400 hover:bg-brand-blue hover:text-white transition-all" aria-label="Nextdoor">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm-2-8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+          </a>
+        </div>
       </div>
 
-      <!-- Services -->
+      {/* Services */}
       <div>
         <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Services</h3>
-        <ul class="space-y-2">
-          {services.map(s => (
-            <li>
-              <a href={s.href} class="text-sm hover:text-white transition-colors">{s.label}</a>
-            </li>
+        <ul class="space-y-2.5">
+          {serviceLinks.map(s => (
+            <li><a href={s.href} class="text-sm hover:text-white transition-colors">{s.label}</a></li>
           ))}
         </ul>
       </div>
 
-      <!-- Locations -->
+      {/* Locations */}
       <div>
         <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Service Areas</h3>
-        <ul class="space-y-2">
-          {locations.map(l => (
-            <li>
-              <a href={l.href} class="text-sm hover:text-white transition-colors">{l.label}, TX</a>
-            </li>
+        <ul class="space-y-2.5">
+          {locationLinks.map(l => (
+            <li><a href={l.href} class="text-sm hover:text-white transition-colors">{l.label}, TX</a></li>
           ))}
         </ul>
       </div>
 
-      <!-- Contact -->
+      {/* Contact */}
       <div>
         <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Contact</h3>
-        <ul class="space-y-3 text-sm">
-          <li>4521 Preston Road<br />Plano, TX 75093</li>
-          <li>Mon–Fri: 7am–7pm<br />Sat: 8am–5pm<br /><span class="text-brand-orange font-semibold">24/7 Emergency (existing customers)</span></li>
-          <li>
-            <a href={`${base}/contact`} class="btn-primary text-sm px-4 py-2.5 mt-2" style="min-height: 40px; display: inline-flex;">
-              Request Service
-            </a>
-          </li>
-        </ul>
+        <address class="not-italic space-y-3 text-sm">
+          <p>4521 Preston Road<br />Plano, TX 75093</p>
+          <p>Mon–Fri: 7am–7pm<br />Sat: 8am–5pm<br /><span class="text-brand-orange font-semibold">24/7 Emergency (existing customers)</span></p>
+        </address>
+        <a href={`${base}/contact`} class="btn-primary text-sm px-4 py-2.5 mt-4" style="min-height: 40px; display: inline-flex;">
+          Request Service
+        </a>
       </div>
 
     </div>
@@ -91,8 +122,8 @@ const locations = [
     <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
       <p>© {year} CoolBreeze HVAC & Air. All rights reserved. TX License #HVAC12847</p>
       <div class="flex gap-4">
-        <a href={`${base}/privacy`} class="hover:text-gray-300 transition-colors">Privacy Policy</a>
-        <a href={`${base}/terms`} class="hover:text-gray-300 transition-colors">Terms</a>
+        <a href="#" class="hover:text-gray-300 transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-gray-300 transition-colors">Terms</a>
       </div>
     </div>
   </div>
