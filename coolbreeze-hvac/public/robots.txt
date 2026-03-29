@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zingcontrol.github.io/Website-Intake-Framework/coolbreeze-hvac/sitemap-index.xml
+Sitemap: https://zingcontrol.github.io/Website-Intake-Framework/sitemap-index.xml
