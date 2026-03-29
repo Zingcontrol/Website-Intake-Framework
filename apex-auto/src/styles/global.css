@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply text-gray-800 bg-white;
+    font-family: 'Barlow', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Barlow Condensed', 'Barlow', system-ui, sans-serif;
+    font-weight: 700;
+  }
+  ::selection {
+    background: #C0392B;
+    color: white;
+  }
+  :focus-visible {
+    outline: 2px solid #C0392B;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* --- Buttons --- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-brand-orange text-white font-bold px-6 py-4 rounded-button text-base leading-none transition-all duration-200 hover:bg-brand-orange-dark hover:-translate-y-0.5 active:scale-95;
+    min-height: 56px;
+    box-shadow: 0 4px 14px rgba(245,166,35,0.4);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(245,166,35,0.5);
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-white text-white font-bold px-6 py-4 rounded-button text-base leading-none transition-all duration-200 hover:bg-white hover:text-brand-charcoal hover:-translate-y-0.5 active:scale-95;
+    min-height: 56px;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-brand-red text-brand-red font-bold px-6 py-4 rounded-button text-base leading-none transition-all duration-200 hover:bg-brand-red hover:text-white hover:-translate-y-0.5 active:scale-95;
+    min-height: 56px;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-brand-red font-semibold text-base transition-all duration-200 hover:text-brand-red-dark;
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+  }
+  .btn-ghost::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s ease;
+  }
+  .btn-ghost:hover::after {
+    width: 100%;
+  }
+
+  /* --- Typography --- */
+  .section-heading {
+    @apply text-section font-extrabold text-brand-charcoal leading-tight;
+  }
+  .section-heading--accent {
+    @apply text-section font-extrabold text-brand-charcoal leading-tight;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.75rem;
+  }
+  .section-heading--accent::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 3rem;
+    height: 3px;
+    background: #F5A623;
+    border-radius: 2px;
+  }
+  .section-sub {
+    @apply text-lg text-gray-600 mt-3 max-w-2xl;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-red to-brand-orange bg-clip-text text-transparent;
+  }
+
+  /* --- Cards --- */
+  .card {
+    @apply bg-white rounded-card border border-gray-100 p-6 transition-all duration-200;
+    box-shadow: 0 1px 3px rgba(28,37,38,0.06), 0 1px 2px rgba(28,37,38,0.04);
+  }
+  .card:hover {
+    box-shadow: 0 10px 25px rgba(28,37,38,0.08), 0 4px 10px rgba(28,37,38,0.04);
+  }
+  .card--glass {
+    @apply rounded-card p-6 transition-all duration-200;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .card--elevated {
+    @apply bg-white rounded-card p-6 transition-all duration-200;
+    box-shadow: 0 20px 40px rgba(28,37,38,0.1);
+  }
+  .card--bordered {
+    @apply bg-white rounded-card p-6 transition-all duration-200 border-l-4 border-brand-orange;
+    box-shadow: 0 1px 3px rgba(28,37,38,0.06), 0 1px 2px rgba(28,37,38,0.04);
+  }
+
+  /* --- Trust --- */
+  .trust-badge {
+    @apply flex items-center gap-2 text-sm font-semibold text-gray-700;
+  }
+
+  /* --- Section Dividers --- */
+  .section-divider {
+    @apply w-full overflow-hidden leading-none;
+  }
+  .section-divider svg {
+    @apply w-full h-auto;
+    display: block;
+  }
+}
+
+/* --- Scroll Animations --- */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+[data-animate="fade-in"] {
+  transform: none;
+}
+[data-animate="slide-left"] {
+  transform: translateX(-30px);
+}
+[data-animate="slide-right"] {
+  transform: translateX(30px);
+}
+[data-animate="scale-up"] {
+  transform: scale(0.95);
+}
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

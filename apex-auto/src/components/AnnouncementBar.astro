@@ -1,0 +1,36 @@
+---
+interface Props {
+  text: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+const { text, ctaLabel, ctaHref } = Astro.props;
+---
+
+<div id="announcement-bar" class="text-white text-sm py-2.5 px-4 text-center relative z-50" style="background: linear-gradient(90deg, #C0392B 0%, #A93226 100%);">
+  <div class="max-w-7xl mx-auto flex items-center justify-center gap-3">
+    <span class="font-medium">{text}</span>
+    {ctaLabel && ctaHref && (
+      <a href={ctaHref} class="font-bold underline underline-offset-2 hover:text-brand-orange transition-colors">{ctaLabel}</a>
+    )}
+    <button
+      id="dismiss-announcement"
+      class="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors p-1"
+      aria-label="Dismiss announcement"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  const bar = document.getElementById('announcement-bar');
+  const btn = document.getElementById('dismiss-announcement');
+  if (sessionStorage.getItem('announcement-dismissed')) {
+    bar?.remove();
+  }
+  btn?.addEventListener('click', () => {
+    bar?.remove();
+    sessionStorage.setItem('announcement-dismissed', 'true');
+  });
+</script>

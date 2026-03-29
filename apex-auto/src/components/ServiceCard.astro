@@ -1,0 +1,52 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  href: string;
+  icon: string;
+  urgent?: boolean;
+  image?: string;
+}
+const { title, description, href, icon, urgent = false, image } = Astro.props;
+---
+
+<a href={href} class="group relative flex flex-col bg-white rounded-card border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-card-hover hover:-translate-y-0.5" style="box-shadow: 0 1px 3px rgba(10,37,64,0.06), 0 1px 2px rgba(10,37,64,0.04);">
+  {/* Image */}
+  {image ? (
+    <div class="relative h-44 overflow-hidden flex-shrink-0">
+      <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-charcoal/40 to-transparent"></div>
+      {urgent && (
+        <span class="absolute top-3 right-3 flex items-center gap-1.5 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-badge shadow">
+          <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse-soft"></span>
+          24/7
+        </span>
+      )}
+    </div>
+  ) : (
+    urgent && (
+      <span class="absolute top-4 right-4 flex items-center gap-1.5 bg-red-100 text-red-700 text-xs font-bold px-2.5 py-1 rounded-badge">
+        <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse-soft"></span>
+        24/7
+      </span>
+    )
+  )}
+
+  <div class="flex flex-col gap-3 p-6 flex-1">
+    <div class="w-12 h-12 rounded-xl bg-brand-light flex items-center justify-center text-brand-red group-hover:bg-brand-red group-hover:text-white transition-all duration-200 flex-shrink-0">
+      <Fragment set:html={icon} />
+    </div>
+    <div>
+      <h3 class="font-bold text-brand-charcoal text-card-title leading-tight mb-1.5 group-hover:text-brand-red transition-colors">
+        {title}
+      </h3>
+      <p class="text-gray-600 text-sm leading-relaxed">{description}</p>
+    </div>
+    <div class="mt-auto pt-2 flex items-center gap-1 text-brand-red font-semibold text-sm border-t border-gray-50">
+      Learn more
+      <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </div>
+</a>

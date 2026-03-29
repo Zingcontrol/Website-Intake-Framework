@@ -1,0 +1,98 @@
+name: Deploy All Sites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "coolbreeze-hvac/**"
+      - "apex-auto/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build CoolBreeze HVAC
+        working-directory: coolbreeze-hvac
+        run: npm install && npm run build
+
+      - name: Build Apex Auto
+        working-directory: apex-auto
+        run: npm install && npm run build
+
+      - name: Combine dist folders
+        run: |
+          mkdir -p _site/Website-Intake-Framework/coolbreeze-hvac
+          mkdir -p _site/Website-Intake-Framework/apex-auto
+          cp -r coolbreeze-hvac/dist/. _site/Website-Intake-Framework/coolbreeze-hvac/
+          cp -r apex-auto/dist/. _site/Website-Intake-Framework/apex-auto/
+          # Root index — redirect page listing both demos
+          cat > _site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Zingcontrol Website Demos</title>
+            <style>
+              body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+              .wrap { max-width: 480px; width: 100%; padding: 2rem; text-align: center; }
+              h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+              p { color: #94a3b8; margin-bottom: 2rem; }
+              .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+              a { display: block; background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.25rem; color: #e2e8f0; text-decoration: none; transition: background 0.2s; }
+              a:hover { background: #334155; }
+              .label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 0.25rem; }
+              .name { font-weight: 700; }
+              .tag { font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; }
+            </style>
+          </head>
+          <body>
+            <div class="wrap">
+              <h1>Zingcontrol Demo Sites</h1>
+              <p>Live demo builds from the Website Intake Framework.</p>
+              <div class="grid">
+                <a href="/Website-Intake-Framework/coolbreeze-hvac/">
+                  <div class="label">HVAC</div>
+                  <div class="name">CoolBreeze HVAC</div>
+                  <div class="tag">DFW · Plano, TX</div>
+                </a>
+                <a href="/Website-Intake-Framework/apex-auto/">
+                  <div class="label">Auto Service</div>
+                  <div class="name">Apex Auto</div>
+                  <div class="tag">DFW · Plano, TX</div>
+                </a>
+              </div>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

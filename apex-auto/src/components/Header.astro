@@ -1,0 +1,199 @@
+---
+const base = import.meta.env.BASE_URL;
+const phone = '(972) 555-0247';
+
+const services = [
+  { label: 'Oil Change & Lube', href: `${base}/services/oil-change` },
+  { label: 'Brake Repair', href: `${base}/services/brakes` },
+  { label: 'AC & Heating', href: `${base}/services/ac-heating` },
+  { label: 'Tires & Alignment', href: `${base}/services/tires` },
+  { label: 'Engine Diagnostics', href: `${base}/services/diagnostics` },
+  { label: 'Transmission', href: `${base}/services/transmission` },
+];
+
+const locations = [
+  { label: 'Plano', href: `${base}/locations/plano` },
+  { label: 'Frisco', href: `${base}/locations/frisco` },
+  { label: 'Allen', href: `${base}/locations/allen` },
+  { label: 'McKinney', href: `${base}/locations/mckinney` },
+  { label: 'Richardson', href: `${base}/locations/richardson` },
+];
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: rgba(28,37,38,0);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 md:h-20">
+
+      {/* Logo */}
+      <a href={base || '/'} class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-brand-red flex items-center justify-center text-white font-black text-lg leading-none transition-transform group-hover:scale-105">
+          AA
+        </div>
+        <div class="leading-tight">
+          <div class="text-white font-extrabold text-lg leading-none">Apex Auto</div>
+          <div class="text-brand-orange text-xs font-semibold tracking-wide">Service & Repair</div>
+        </div>
+      </a>
+
+      {/* Desktop nav */}
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+        {/* Services dropdown */}
+        <div class="relative group">
+          <button class="text-gray-300 hover:text-white text-sm font-medium transition-colors px-4 py-2 flex items-center gap-1">
+            Services
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+            <div class="bg-white rounded-card shadow-nav p-4 min-w-[280px] grid grid-cols-2 gap-1">
+              {services.map(item => (
+                <a href={item.href} class="text-sm text-gray-700 hover:text-brand-red hover:bg-brand-light px-3 py-2.5 rounded-lg transition-colors font-medium">{item.label}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Locations dropdown */}
+        <div class="relative group">
+          <button class="text-gray-300 hover:text-white text-sm font-medium transition-colors px-4 py-2 flex items-center gap-1">
+            Locations
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+            <div class="bg-white rounded-card shadow-nav p-4 min-w-[200px]">
+              {locations.map(item => (
+                <a href={item.href} class="block text-sm text-gray-700 hover:text-brand-red hover:bg-brand-light px-3 py-2.5 rounded-lg transition-colors font-medium">{item.label}, TX</a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <a href={`${base}/about`} class="text-gray-300 hover:text-white text-sm font-medium transition-colors px-4 py-2">About</a>
+        <a href={`${base}/contact`} class="text-gray-300 hover:text-white text-sm font-medium transition-colors px-4 py-2">Contact</a>
+      </nav>
+
+      {/* Right side */}
+      <div class="flex items-center gap-3">
+        {/* Phone with availability dot */}
+        <a
+          href={`tel:${phone.replace(/\D/g,'')}`}
+          class="hidden md:flex items-center gap-2 text-white font-bold text-sm hover:text-brand-orange transition-colors"
+          onclick="trackEvent('phone_click', {location: 'header'})"
+        >
+          <span class="relative">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+            <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-400 rounded-full animate-pulse-soft"></span>
+          </span>
+          {phone}
+        </a>
+        <a
+          href={`${base}/contact`}
+          class="btn-primary text-sm px-4 py-2.5"
+          style="min-height: 40px;"
+          onclick="trackEvent('cta_click', {location: 'header', cta: 'book_service'})"
+        >
+          Schedule Service
+        </a>
+
+        {/* Mobile menu button */}
+        <button
+          id="menu-toggle"
+          class="lg:hidden text-white p-1"
+          aria-label="Open menu"
+        >
+          <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {/* Mobile full-screen overlay */}
+  <div id="mobile-menu" class="fixed inset-0 z-40 hidden lg:hidden flex-col pt-20 px-6 overflow-y-auto" style="background: rgba(28,37,38,0.98);">
+    <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
+      <div class="text-label text-brand-orange uppercase mb-2 mt-4">Services</div>
+      {services.map((item, i) => (
+        <a
+          href={item.href}
+          class="text-white text-lg font-medium py-2 border-b border-white/5 mobile-nav-link"
+          style={`--delay: ${i * 50}ms`}
+        >
+          {item.label}
+        </a>
+      ))}
+
+      <div class="text-label text-brand-orange uppercase mb-2 mt-6">Locations</div>
+      {locations.map((item, i) => (
+        <a
+          href={item.href}
+          class="text-white text-lg font-medium py-2 border-b border-white/5 mobile-nav-link"
+          style={`--delay: ${(i + services.length) * 50}ms`}
+        >
+          {item.label}, TX
+        </a>
+      ))}
+
+      <div class="mt-6 flex flex-col gap-3">
+        <a href={`${base}/about`} class="text-white text-lg font-medium py-2">About</a>
+        <a href={`${base}/contact`} class="text-white text-lg font-medium py-2">Contact</a>
+      </div>
+
+      <a
+        href={`tel:${phone.replace(/\D/g,'')}`}
+        class="flex items-center justify-center gap-2 btn-primary mt-8 w-full"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+        </svg>
+        Call {phone}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Scroll-aware header background
+  const header = document.getElementById('site-header');
+  function updateHeader() {
+    if (!header) return;
+    if (window.scrollY > 80) {
+      header.style.background = 'rgba(28,37,38,0.97)';
+      header.style.backdropFilter = 'blur(12px)';
+      header.style.boxShadow = '0 4px 20px rgba(10,37,64,0.15)';
+    } else {
+      header.style.background = 'rgba(28,37,38,0)';
+      header.style.backdropFilter = '';
+      header.style.boxShadow = '';
+    }
+  }
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+
+  // Mobile menu toggle
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    if (isOpen) {
+      menu?.classList.add('hidden');
+      menu?.classList.remove('flex');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+      document.body.style.overflow = '';
+    } else {
+      menu?.classList.remove('hidden');
+      menu?.classList.add('flex');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+</script>

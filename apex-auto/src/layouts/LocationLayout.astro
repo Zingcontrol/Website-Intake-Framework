@@ -1,0 +1,181 @@
+---
+import Layout from './Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import BreadcrumbNav from '../components/BreadcrumbNav.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import TestimonialCarousel from '../components/TestimonialCarousel.astro';
+import type { Location } from '../data/locations';
+import { locations } from '../data/locations';
+import { testimonials } from '../data/testimonials';
+import { services } from '../data/services';
+
+interface Props {
+  location: Location;
+}
+
+const { location: loc } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const phone = '(972) 555-0247';
+
+// Filter testimonials for this city
+const cityReviews = testimonials.filter(t => t.location.includes(loc.city));
+const allReviews = cityReviews.length >= 2 ? cityReviews : testimonials.slice(0, 3);
+
+// Other locations for "nearby" section
+const otherLocations = Object.values(locations).filter(l => l.slug !== loc.slug);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  "name": `Apex Auto Service — Serving ${loc.city}`,
+  "telephone": "+19725550247",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4521 Preston Road",
+    "addressLocality": "Plano",
+    "addressRegion": "TX",
+    "postalCode": "75093",
+  },
+  "areaServed": loc.city,
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "16:00" },
+  ],
+};
+---
+
+<Layout
+  title={`Auto Service in ${loc.city}, ${loc.state}`}
+  description={`Apex Auto Service — Honest auto repair for ${loc.city}, ${loc.state} drivers. ASE-certified, NAPA AutoCare, AAA Approved. ${loc.responseTime}. Call ${phone}.`}
+  schema={schema}
+  ogImage={loc.heroImage}
+>
+  {/* Mini Hero */}
+  <Hero
+    headline={`Auto Service in ${loc.city}, ${loc.state}`}
+    highlightText=""
+    subheadline={loc.description}
+    bgImage={loc.heroImage}
+    showStats={false}
+    compact={true}
+  />
+
+  <TrustBar />
+
+  {/* Breadcrumb */}
+  <section class="py-4 bg-brand-gray">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <BreadcrumbNav items={[
+        { label: 'Home', href: base || '/' },
+        { label: `${loc.city}, ${loc.state}` },
+      ]} />
+    </div>
+  </section>
+
+  {/* Quick Facts */}
+  <section class="py-16 bg-white" aria-label="Location details">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div data-animate="slide-left">
+          <h2 class="section-heading--accent mb-6">Serving {loc.city} & Surrounding Areas</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">{loc.description}</p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={`${base}/contact`} class="btn-primary">Schedule in {loc.city}</a>
+            <a href={`tel:${phone.replace(/\D/g,'')}`} class="btn-outline">Call {phone}</a>
+          </div>
+        </div>
+        <div class="space-y-4" data-animate="slide-right">
+          <div class="card--bordered">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span class="font-bold text-brand-charcoal">Typical Service Time</span>
+            </div>
+            <p class="text-gray-600 text-sm ml-8">{loc.responseTime} {loc.isHQ ? '(Our Main Shop)' : ''}</p>
+          </div>
+          <div class="card--bordered">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span class="font-bold text-brand-charcoal">Zip Code</span>
+            </div>
+            <p class="text-gray-600 text-sm ml-8">{loc.zip} + surrounding</p>
+          </div>
+          <div class="card--bordered">
+            <div class="flex items-center gap-3 mb-1">
+              <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span class="font-bold text-brand-charcoal">Hours</span>
+            </div>
+            <p class="text-gray-600 text-sm ml-8">Mon–Fri 7am–6pm · Sat 8am–4pm<br/><span class="text-brand-orange font-medium">Sunday: Closed</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Services Available */}
+  <section class="py-16 bg-brand-gray" aria-label="Available services">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h2 class="section-heading text-center mb-10" data-animate="fade-up">Services in {loc.city}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {Object.values(services).map((svc, i) => (
+          <a href={`${base}/services/${svc.slug}`} class="card group flex items-center gap-4" data-animate="fade-up" data-animate-delay={String(i * 80)}>
+            <div class="w-10 h-10 rounded-xl bg-brand-light flex items-center justify-center text-brand-red group-hover:bg-brand-red group-hover:text-white transition-colors flex-shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-bold text-brand-charcoal group-hover:text-brand-red transition-colors text-sm">{svc.title}</h3>
+            </div>
+            <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-red group-hover:translate-x-1 transition-all flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Testimonials */}
+  <TestimonialCarousel
+    reviews={allReviews}
+    heading={`Reviews from {loc.city} Drivers`}
+    subheading={`What ${loc.city} residents say about Apex Auto.`}
+  />
+
+  {/* FAQ */}
+  {loc.faqs.length > 0 && (
+    <FAQAccordion
+      items={loc.faqs}
+      heading={`Auto Service in ${loc.city} — FAQs`}
+      subheading={`Common questions from ${loc.city} drivers.`}
+    />
+  )}
+
+  {/* Nearby Locations */}
+  <section class="py-16 bg-brand-gray" aria-label="Nearby locations">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h2 class="section-heading text-center mb-10" data-animate="fade-up">Also Serving Nearby</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {otherLocations.map((other, i) => (
+          <a href={`${base}/locations/${other.slug}`} class="card group flex items-center justify-between" data-animate="slide-right" data-animate-delay={String(i * 100)}>
+            <div>
+              <h3 class="font-bold text-brand-charcoal group-hover:text-brand-red transition-colors">{other.city}, {other.state}</h3>
+              <p class="text-sm text-gray-500">{other.responseTime}</p>
+            </div>
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-brand-red group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

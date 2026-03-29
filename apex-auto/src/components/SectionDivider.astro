@@ -1,0 +1,35 @@
+---
+interface Props {
+  from?: string;
+  to?: string;
+  variant?: 'wave' | 'angle' | 'curve';
+}
+const { from = '#ffffff', to = '#F7F8FA', variant = 'wave' } = Astro.props;
+---
+
+{variant === 'wave' && (
+  <div class="section-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 0h1440v20c-240 40-480 40-720 0S0 60 0 20V0z" fill={from}/>
+      <rect y="20" width="1440" height="40" fill={to}/>
+    </svg>
+  </div>
+)}
+
+{variant === 'angle' && (
+  <div class="section-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <polygon points="0,0 1440,0 1440,20 0,60" fill={from}/>
+      <polygon points="0,60 1440,20 1440,60" fill={to}/>
+    </svg>
+  </div>
+)}
+
+{variant === 'curve' && (
+  <div class="section-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 60V0h1440v30Q1080 60 720 40Q360 20 0 60z" fill={from}/>
+      <rect y="30" width="1440" height="30" fill={to}/>
+    </svg>
+  </div>
+)}
