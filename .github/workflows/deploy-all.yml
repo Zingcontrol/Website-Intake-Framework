@@ -36,10 +36,10 @@ jobs:
 
       - name: Assemble _site
         run: |
-          mkdir -p _site/Website-Intake-Framework/zinggrow
-          mkdir -p _site/Website-Intake-Framework/prebuiltrans
-          cp -r zinggrow/dist/. _site/Website-Intake-Framework/zinggrow/
-          cp -r prebuiltrans/dist/. _site/Website-Intake-Framework/prebuiltrans/
+          mkdir -p _site/zinggrow
+          mkdir -p _site/prebuiltrans
+          cp -r zinggrow/dist/. _site/zinggrow/
+          cp -r prebuiltrans/dist/. _site/prebuiltrans/
           cat > _site/index.html << 'EOF'
           <!DOCTYPE html>
           <html lang="en">
@@ -48,16 +48,16 @@ jobs:
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <title>Website Intake Framework — Demo Sites</title>
             <style>
-              body { font-family: system-ui, sans-serif; background: #0D1B2A; color: #fff; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-              .wrap { max-width: 640px; width: 100%; padding: 2rem; }
-              h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: .5rem; }
-              p { color: #94a3b8; margin-bottom: 2rem; }
-              .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-              a { display: block; background: #1B2E45; border: 1px solid #2A3A4A; border-radius: 12px; padding: 1.5rem; color: #fff; text-decoration: none; transition: border-color .2s; }
-              a:hover { border-color: #F5820A; }
-              .label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #F5820A; margin-bottom: .4rem; }
-              .name { font-size: 1.1rem; font-weight: 800; margin-bottom: .25rem; }
-              .desc { font-size: .8rem; color: #94a3b8; }
+              body{font-family:system-ui,sans-serif;background:#0D1B2A;color:#fff;margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh}
+              .wrap{max-width:640px;width:100%;padding:2rem}
+              h1{font-size:1.75rem;font-weight:800;margin-bottom:.5rem}
+              p{color:#94a3b8;margin-bottom:2rem}
+              .grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+              a{display:block;background:#1B2E45;border:1px solid #2A3A4A;border-radius:12px;padding:1.5rem;color:#fff;text-decoration:none;transition:border-color .2s}
+              a:hover{border-color:#F5820A}
+              .label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#F5820A;margin-bottom:.4rem}
+              .name{font-size:1.1rem;font-weight:800;margin-bottom:.25rem}
+              .desc{font-size:.8rem;color:#94a3b8}
             </style>
           </head>
           <body>
@@ -65,12 +65,12 @@ jobs:
               <h1>Website Intake Framework</h1>
               <p>Demo staging sites — Orem, UT 84057 market</p>
               <div class="grid">
-                <a href="/Website-Intake-Framework/zinggrow/">
+                <a href="zinggrow/">
                   <div class="label">SaaS / CRM</div>
                   <div class="name">ZingGrow</div>
                   <div class="desc">All-in-one CRM platform — 24yr, veteran-owned</div>
                 </a>
-                <a href="/Website-Intake-Framework/prebuiltrans/">
+                <a href="prebuiltrans/">
                   <div class="label">Transmission Specialist</div>
                   <div class="name">Pre-Built Trans</div>
                   <div class="desc">Domestic truck transmissions — same-day, free towing</div>
