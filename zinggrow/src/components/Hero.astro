@@ -1,0 +1,151 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex items-center overflow-hidden"
+  style="background-color: #0D1B2A;"
+>
+  <!-- Background geometric pattern -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <!-- Subtle grid overlay -->
+    <div
+      class="absolute inset-0 opacity-[0.04]"
+      style="background-image: linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px); background-size: 60px 60px;"
+    ></div>
+    <!-- Radial glow top-right -->
+    <div
+      class="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full opacity-20"
+      style="background: radial-gradient(circle, #F5820A 0%, transparent 70%);"
+    ></div>
+    <!-- Radial glow bottom-left -->
+    <div
+      class="absolute -bottom-40 -left-20 w-[500px] h-[500px] rounded-full opacity-10"
+      style="background: radial-gradient(circle, #1A7A8A 0%, transparent 70%);"
+    ></div>
+    <!-- Diagonal accent line -->
+    <div
+      class="absolute top-0 right-1/4 w-px h-full opacity-10"
+      style="background: linear-gradient(to bottom, transparent, #F5820A 30%, #1A7A8A 70%, transparent);"
+    ></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 pt-32 md:pt-36 w-full">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <!-- Left column: copy -->
+      <div class="text-center lg:text-left">
+
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-brand-orange/40 bg-brand-orange/10 text-brand-orange-light text-sm font-semibold animate-on-scroll">
+          <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          Founded 2002 · Veteran-Owned · 24 Years of Small Business Growth
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-black text-white leading-[1.1] tracking-tight mb-6 animate-on-scroll" style="animation-delay: 0.1s;">
+          The CRM Built for Small Business —<br class="hidden sm:block" />
+          <span class="text-brand-orange">With Real People Behind It</span>
+        </h1>
+
+        <!-- Sub-headline -->
+        <p class="text-lg md:text-xl text-white/70 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0 animate-on-scroll" style="animation-delay: 0.2s;">
+          24 years. Veteran-owned. The only all-in-one platform that comes with a dedicated human team for onboarding, training, and ongoing support. Not just a login.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 animate-on-scroll" style="animation-delay: 0.3s;">
+          <a
+            href={`${base}/demo`}
+            class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-brand-orange text-white font-bold text-lg shadow-lg hover:bg-brand-orange-dark hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Schedule a Free Demo
+          </a>
+          <a
+            href={`${base}/#platform`}
+            class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 hover:border-white/50 transition-all duration-200"
+          >
+            See the Platform
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="flex flex-wrap gap-6 justify-center lg:justify-start animate-on-scroll" style="animation-delay: 0.4s;">
+          <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10">
+            <div class="text-brand-orange font-black text-2xl leading-none">24</div>
+            <div class="text-white/70 text-sm leading-tight">Years in<br/>Business</div>
+          </div>
+          <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10">
+            <div class="text-brand-teal-light font-black text-2xl leading-none">8+</div>
+            <div class="text-white/70 text-sm leading-tight">All-in-One<br/>Platform Tools</div>
+          </div>
+          <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10">
+            <div class="text-brand-orange-light font-black text-2xl leading-none">100%</div>
+            <div class="text-white/70 text-sm leading-tight">Human<br/>Support Team</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: screenshot/mockup -->
+      <div class="relative lg:block animate-on-scroll" style="animation-delay: 0.25s;">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+          <!-- Browser chrome mockup bar -->
+          <div class="flex items-center gap-2 px-4 py-3 bg-brand-navy-light border-b border-white/10">
+            <div class="w-3 h-3 rounded-full bg-red-400/70"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-400/70"></div>
+            <div class="w-3 h-3 rounded-full bg-green-400/70"></div>
+            <div class="flex-1 mx-4 px-3 py-1 rounded bg-white/5 text-white/30 text-xs font-mono">app.zinggrow.com</div>
+          </div>
+          <!-- Dashboard image -->
+          <img
+            src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&auto=format&fit=crop&q=80"
+            alt="ZingGrow platform dashboard showing CRM pipeline and analytics"
+            class="w-full h-64 sm:h-80 lg:h-96 object-cover object-top"
+            loading="eager"
+          />
+          <!-- Overlay gradient at bottom -->
+          <div class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+            style="background: linear-gradient(to top, #0D1B2A, transparent);"></div>
+        </div>
+
+        <!-- Floating badge card: Human Onboarding -->
+        <div class="absolute -bottom-6 -left-4 sm:-left-8 bg-white rounded-xl p-4 shadow-xl border border-gray-100 max-w-[200px]">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-teal/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-brand-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-brand-navy font-bold text-sm leading-tight">Real Human Onboarding</div>
+              <div class="text-gray-500 text-xs mt-0.5">Your dedicated specialist starts within 24hrs</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating badge card: Founded 2002 -->
+        <div class="absolute -top-4 -right-4 sm:-right-6 bg-brand-orange rounded-xl p-3 shadow-xl text-white text-center">
+          <div class="font-black text-2xl leading-none">2002</div>
+          <div class="text-xs font-semibold opacity-90 mt-0.5">Founded</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+    <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>

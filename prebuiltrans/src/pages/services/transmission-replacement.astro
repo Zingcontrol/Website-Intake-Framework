@@ -1,0 +1,9 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { getServiceBySlug } from '../../data/services';
+
+const service = getServiceBySlug('transmission-replacement');
+if (!service) throw new Error('Service not found');
+---
+
+<ServiceLayout service={service} />

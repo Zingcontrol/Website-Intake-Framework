@@ -1,0 +1,42 @@
+---
+// ScrollAnimator — triggers .is-visible on elements with animate-on-scroll classes
+// when they enter the viewport via IntersectionObserver
+---
+
+<script>
+  function initScrollAnimations() {
+    const selectors = [
+      '.animate-on-scroll',
+      '.animate-on-scroll-left',
+      '.animate-on-scroll-right',
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    selectors.forEach((selector) => {
+      document.querySelectorAll(selector).forEach((el) => {
+        observer.observe(el);
+      });
+    });
+  }
+
+  // Run after DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollAnimations);
+  } else {
+    initScrollAnimations();
+  }
+</script>

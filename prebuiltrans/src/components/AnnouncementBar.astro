@@ -1,0 +1,30 @@
+---
+const BASE = import.meta.env.BASE_URL;
+---
+<div id="ann-bar" style="background-color: #E86B00;">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
+    <div class="flex-1 flex items-center justify-center gap-3 text-white text-sm font-heading font-bold uppercase tracking-wider">
+      <span class="hidden sm:inline">🚛</span>
+      <span>Free Towing Within 50 Miles — Call Now:&nbsp;<a href="tel:+13854628458" class="underline hover:no-underline">(385) 462-8458</a></span>
+      <span class="hidden md:inline">|</span>
+      <span class="hidden md:inline">24/7 Emergency Line: <a href="tel:+18333228458" class="underline hover:no-underline">(833) 322-8458</a></span>
+    </div>
+    <button
+      id="ann-close"
+      aria-label="Dismiss announcement"
+      class="text-white hover:text-orange-100 flex-shrink-0 p-1"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M12.207 4.207a1 1 0 0 0-1.414-1.414L8 5.586 5.207 2.793a1 1 0 0 0-1.414 1.414L6.586 7 3.793 9.793a1 1 0 0 0 1.414 1.414L8 8.414l2.793 2.793a1 1 0 0 0 1.414-1.414L9.414 7l2.793-2.793z"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  const bar = document.getElementById('ann-bar');
+  const closeBtn = document.getElementById('ann-close');
+  closeBtn?.addEventListener('click', () => {
+    bar?.classList.add('dismissed');
+  });
+</script>

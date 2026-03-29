@@ -1,0 +1,126 @@
+---
+const base = import.meta.env.BASE_URL;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-brand-navy border-t border-white/10">
+  <!-- Main footer content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand column -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center">
+            <span class="text-white font-black text-xl" style="font-family: Inter, sans-serif;">Z</span>
+          </div>
+          <div>
+            <div class="font-black text-xl text-white">ZingGrow</div>
+            <div class="text-xs text-white/50 font-medium">by Zing Business Systems</div>
+          </div>
+        </div>
+        <p class="text-white/55 text-sm leading-relaxed mb-6 max-w-sm">
+          The all-in-one CRM and marketing automation platform for small businesses — backed by 24 years of experience and a team that actually picks up the phone.
+        </p>
+        <div class="flex flex-col gap-2 text-sm">
+          <a href="tel:8778069464" class="flex items-center gap-2 text-white/60 hover:text-brand-orange transition-colors">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            (877) 806-9464
+          </a>
+          <div class="flex items-center gap-2 text-white/60">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            1090 N 960 W, Orem, UT 84057
+          </div>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="flex flex-wrap gap-3 mt-6">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium">
+            <svg class="w-3 h-3 text-brand-orange" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            Veteran-Owned
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium">
+            Founded 2002
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/60 text-xs font-medium">
+            Summit Advertising LLC
+          </span>
+        </div>
+      </div>
+
+      <!-- Platform links -->
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Platform</h4>
+        <ul class="space-y-2.5">
+          {[
+            ['CRM & Pipeline', '#platform'],
+            ['Email & SMS Automation', '#platform'],
+            ['Appointment Scheduling', '#platform'],
+            ['Review Management', '#platform'],
+            ['Website Builder', '#platform'],
+            ['Reporting & Analytics', '#platform'],
+          ].map(([label, href]) => (
+            <li>
+              <a href={`${base}/${href}`} class="text-white/50 hover:text-white text-sm transition-colors">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Company links -->
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Company</h4>
+        <ul class="space-y-2.5">
+          {[
+            ['Why ZingGrow', '/#why-zing'],
+            ['Human Support', '/#support'],
+            ['FAQs', '/#faq'],
+            ['Schedule a Demo', '/demo'],
+            ['Contact Us', '/demo'],
+          ].map(([label, href]) => (
+            <li>
+              <a href={`${base}${href}`} class="text-white/50 hover:text-white text-sm transition-colors">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-8">
+          <h4 class="text-white font-semibold text-sm mb-3">Ready to Start?</h4>
+          <a
+            href={`${base}/demo`}
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-orange text-white text-sm font-semibold hover:bg-brand-orange-dark transition-all shadow-sm hover:shadow-md"
+          >
+            Schedule Free Demo
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-white/35 text-xs">
+        &copy; {currentYear} Zing Business Systems / Summit Advertising LLC. All rights reserved.
+      </p>
+      <div class="flex items-center gap-5">
+        <a href="#" class="text-white/35 hover:text-white/60 text-xs transition-colors">Privacy Policy</a>
+        <a href="#" class="text-white/35 hover:text-white/60 text-xs transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>

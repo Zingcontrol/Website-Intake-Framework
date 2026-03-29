@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://zingcontrol.github.io/Website-Intake-Framework/sitemap-index.xml

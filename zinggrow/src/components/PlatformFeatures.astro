@@ -1,0 +1,48 @@
+---
+import { features } from '../data/features';
+import FeatureCard from './FeatureCard.astro';
+---
+
+<section id="platform" class="py-20 md:py-28 bg-brand-gray">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section header -->
+    <div class="text-center max-w-3xl mx-auto mb-14 animate-on-scroll">
+      <span class="inline-block px-3 py-1 rounded-full bg-brand-teal/10 text-brand-teal text-sm font-semibold mb-4">
+        The Full Platform
+      </span>
+      <h2 class="section-heading mb-4">
+        Everything Your Business Needs.<br class="hidden sm:block" />
+        In One Place.
+      </h2>
+      <p class="section-subheading">
+        Stop paying for five separate tools that don't talk to each other. ZingGrow replaces your CRM, email marketing, scheduling, review software, and website builder — with one platform and one team that knows how it all works together.
+      </p>
+    </div>
+
+    <!-- Features grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {features.map((feature, index) => (
+        <div
+          class="animate-on-scroll"
+          style={`animation-delay: ${index * 0.07}s;`}
+        >
+          <FeatureCard
+            slug={feature.slug}
+            title={feature.title}
+            shortTitle={feature.shortTitle}
+            description={feature.description}
+            icon={feature.icon}
+            benefits={feature.benefits}
+            accent={index % 2 === 0 ? 'teal' : 'orange'}
+          />
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom note -->
+    <p class="text-center text-gray-500 text-sm mt-10 animate-on-scroll">
+      All features included in every plan. No bolt-ons, no surprise upgrades.
+    </p>
+  </div>
+</section>

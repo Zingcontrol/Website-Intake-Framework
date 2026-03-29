@@ -1,0 +1,160 @@
+---
+const base = import.meta.env.BASE_URL;
+
+export interface Props {
+  currentPage?: string;
+}
+const { currentPage = '/' } = Astro.props;
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  style="background: transparent;"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 md:h-18">
+
+      <!-- Logo -->
+      <a href={`${base}/`} class="flex items-center gap-3 flex-shrink-0 group">
+        <div class="w-9 h-9 rounded-full bg-brand-orange flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+          <span class="text-white font-black text-xl leading-none" style="font-family: Inter, sans-serif;">Z</span>
+        </div>
+        <div class="flex flex-col leading-none">
+          <span id="logo-main" class="font-black text-xl text-white transition-colors duration-300">ZingGrow</span>
+          <span id="logo-sub" class="text-xs font-medium text-white/60 transition-colors duration-300">by Zing Business Systems</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a
+          href={`${base}/#platform`}
+          class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+        >
+          Platform
+        </a>
+        <a
+          href={`${base}/#why-zing`}
+          class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+        >
+          Why Zing
+        </a>
+        <a
+          href={`${base}/#pricing`}
+          class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+        >
+          Pricing
+        </a>
+        <a
+          href={`${base}/#support`}
+          class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+        >
+          Support
+        </a>
+        <a
+          href="tel:8778069464"
+          class="nav-link ml-2 px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white transition-colors"
+        >
+          (877) 806-9464
+        </a>
+        <a
+          href={`${base}/demo`}
+          class="ml-2 px-5 py-2.5 rounded-lg bg-brand-orange text-white font-semibold text-sm hover:bg-brand-orange-dark transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+        >
+          Schedule Demo
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        aria-label="Open mobile menu"
+        aria-expanded="false"
+        class="md:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
+      >
+        <svg id="hamburger-icon" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden"
+    style="background: rgba(13,27,42,0.98);"
+  >
+    <div class="px-4 py-4 space-y-1 border-t border-white/10">
+      <a href={`${base}/#platform`} class="block px-4 py-3 rounded-lg text-white/80 font-medium hover:text-white hover:bg-white/10 transition-all">Platform</a>
+      <a href={`${base}/#why-zing`} class="block px-4 py-3 rounded-lg text-white/80 font-medium hover:text-white hover:bg-white/10 transition-all">Why Zing</a>
+      <a href={`${base}/#pricing`} class="block px-4 py-3 rounded-lg text-white/80 font-medium hover:text-white hover:bg-white/10 transition-all">Pricing</a>
+      <a href={`${base}/#support`} class="block px-4 py-3 rounded-lg text-white/80 font-medium hover:text-white hover:bg-white/10 transition-all">Support</a>
+      <a href="tel:8778069464" class="block px-4 py-3 rounded-lg text-white/70 font-medium hover:text-white hover:bg-white/10 transition-all">(877) 806-9464</a>
+      <div class="pt-2">
+        <a
+          href={`${base}/demo`}
+          class="block w-full text-center px-5 py-3 rounded-lg bg-brand-orange text-white font-semibold hover:bg-brand-orange-dark transition-all"
+        >
+          Schedule Free Demo
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const hamIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  btn?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden', isOpen);
+    hamIcon?.classList.toggle('hidden', !isOpen);
+    closeIcon?.classList.toggle('hidden', isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  // Close mobile menu on nav link click
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      hamIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      btn?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll-aware header
+  const header = document.getElementById('site-header');
+  const logoMain = document.getElementById('logo-main');
+  const logoSub = document.getElementById('logo-sub');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function updateHeader() {
+    const scrolled = window.scrollY > 64;
+    if (header) {
+      if (scrolled) {
+        header.style.background = 'rgba(13, 27, 42, 0.97)';
+        header.style.backdropFilter = 'blur(12px)';
+        header.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+        header.style.boxShadow = '0 4px 24px rgba(0,0,0,0.3)';
+      } else {
+        header.style.background = 'transparent';
+        header.style.backdropFilter = 'none';
+        header.style.borderBottom = 'none';
+        header.style.boxShadow = 'none';
+      }
+    }
+  }
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+</script>

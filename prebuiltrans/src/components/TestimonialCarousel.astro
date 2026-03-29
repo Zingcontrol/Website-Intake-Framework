@@ -1,0 +1,112 @@
+---
+import { testimonials } from '../data/testimonials';
+import Testimonial from './Testimonial.astro';
+---
+
+<section class="py-20 bg-brand-gray">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12" data-animate>
+      <h2 class="section-heading mb-4">What Truck Owners Are Saying</h2>
+      <p class="section-subheading mx-auto">
+        Real reviews from Ford, Chevy, and Dodge owners across Utah Valley.
+      </p>
+    </div>
+
+    <!-- Desktop: static grid -->
+    <div class="hidden lg:grid grid-cols-3 gap-6">
+      {testimonials.slice(0, 6).map((t, i) => (
+        <div data-animate data-delay={i * 100}>
+          <Testimonial testimonial={t} />
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile/Tablet: scrollable carousel -->
+    <div class="lg:hidden relative">
+      <div id="carousel" class="carousel-track flex gap-4 overflow-x-auto pb-4 scroll-smooth" style="scrollbar-width: none; -ms-overflow-style: none;">
+        {testimonials.map(t => (
+          <Testimonial testimonial={t} />
+        ))}
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center justify-center gap-4 mt-6">
+        <button id="prev-btn" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors" style="border-color: #1B2838; color: #1B2838;" aria-label="Previous">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div id="dots" class="flex gap-2">
+          {testimonials.map((_, i) => (
+            <button class="carousel-dot w-2 h-2 rounded-full transition-all" style={i === 0 ? 'background-color: #E86B00; width: 1.5rem;' : 'background-color: #A8B2BC;'} data-index={i} aria-label={`Go to slide ${i + 1}`}></button>
+          ))}
+        </div>
+        <button id="next-btn" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors" style="border-color: #1B2838; color: #1B2838;" aria-label="Next">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #carousel::-webkit-scrollbar { display: none; }
+</style>
+
+<script>
+  const carousel = document.getElementById('carousel');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const dots = document.querySelectorAll('.carousel-dot');
+  let current = 0;
+
+  function getItemWidth(): number {
+    const item = carousel?.querySelector('.carousel-item') as HTMLElement;
+    if (!item) return 0;
+    return item.offsetWidth + 16; // gap-4 = 16px
+  }
+
+  function scrollTo(index: number) {
+    if (!carousel) return;
+    const total = dots.length;
+    current = Math.max(0, Math.min(index, total - 1));
+    carousel.scrollTo({ left: current * getItemWidth(), behavior: 'smooth' });
+    dots.forEach((dot, i) => {
+      const el = dot as HTMLElement;
+      if (i === current) {
+        el.style.backgroundColor = '#E86B00';
+        el.style.width = '1.5rem';
+      } else {
+        el.style.backgroundColor = '#A8B2BC';
+        el.style.width = '0.5rem';
+      }
+    });
+  }
+
+  prevBtn?.addEventListener('click', () => scrollTo(current - 1));
+  nextBtn?.addEventListener('click', () => scrollTo(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => scrollTo(i)));
+
+  // Update dots on scroll
+  carousel?.addEventListener('scroll', () => {
+    const w = getItemWidth();
+    if (w > 0) {
+      const newCurrent = Math.round((carousel?.scrollLeft || 0) / w);
+      if (newCurrent !== current) {
+        current = newCurrent;
+        dots.forEach((dot, i) => {
+          const el = dot as HTMLElement;
+          if (i === current) {
+            el.style.backgroundColor = '#E86B00';
+            el.style.width = '1.5rem';
+          } else {
+            el.style.backgroundColor = '#A8B2BC';
+            el.style.width = '0.5rem';
+          }
+        });
+      }
+    }
+  });
+</script>

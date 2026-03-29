@@ -1,0 +1,43 @@
+---
+const BASE = import.meta.env.BASE_URL;
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="py-3" style="background-color: #2A3A4A;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <ol class="flex items-center gap-2 flex-wrap" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href={`${BASE}/`} class="font-body text-sm text-gray-400 hover:text-orange-400 transition-colors" itemprop="item">
+          <span itemprop="name">Home</span>
+        </a>
+        <meta itemprop="position" content="1" />
+      </li>
+
+      {items.map((item, i) => (
+        <li class="flex items-center gap-2" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <svg class="w-3 h-3 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          {item.href ? (
+            <a href={item.href} class="font-body text-sm text-gray-400 hover:text-orange-400 transition-colors" itemprop="item">
+              <span itemprop="name">{item.label}</span>
+            </a>
+          ) : (
+            <span class="font-body text-sm font-medium" style="color: #E86B00;" itemprop="name">{item.label}</span>
+          )}
+          <meta itemprop="position" content={String(i + 2)} />
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>

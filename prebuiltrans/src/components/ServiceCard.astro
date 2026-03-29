@@ -1,0 +1,45 @@
+---
+import type { Service } from '../data/services';
+const BASE = import.meta.env.BASE_URL;
+
+interface Props {
+  service: Service;
+  delay?: number;
+}
+
+const { service, delay = 0 } = Astro.props;
+---
+
+<a
+  href={`${BASE}/services/${service.slug}/`}
+  class="group block card overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+  data-animate
+  data-delay={delay}
+>
+  <!-- Image -->
+  <div class="relative h-48 overflow-hidden">
+    <img
+      src={`${service.heroImage.replace('?w=1920&q=80', '')}?w=600&q=80`}
+      alt={service.shortTitle}
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      loading="lazy"
+    />
+    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(27,40,56,0.7) 0%, transparent 60%);"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-6">
+    <h3 class="font-heading font-black text-xl uppercase tracking-tight text-brand-steel mb-2 group-hover:text-orange-600 transition-colors">
+      {service.shortTitle}
+    </h3>
+    <p class="font-body text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">
+      {service.description.substring(0, 140)}...
+    </p>
+    <div class="flex items-center gap-2 font-heading font-bold text-sm uppercase tracking-wider" style="color: #E86B00;">
+      Learn More
+      <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </div>
+  </div>
+</a>

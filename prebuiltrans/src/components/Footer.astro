@@ -1,0 +1,122 @@
+---
+const BASE = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
+
+const serviceLinks = [
+  { label: 'Transmission Replacement', href: `${BASE}/services/transmission-replacement/` },
+  { label: 'Transmission Rebuild', href: `${BASE}/services/transmission-rebuild/` },
+  { label: 'Diagnostics', href: `${BASE}/services/transmission-diagnostics/` },
+  { label: 'Fluid Service', href: `${BASE}/services/fluid-service/` },
+  { label: 'Free Towing', href: `${BASE}/services/free-towing/` },
+  { label: 'Emergency Service', href: `${BASE}/services/emergency-service/` },
+];
+---
+
+<footer style="background-color: #1B2838; border-top: 1px solid rgba(168,178,188,0.1);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+      <!-- Brand Column -->
+      <div class="lg:col-span-1">
+        <a href={`${BASE}/`} class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center font-heading font-black text-white" style="background-color: #E86B00;">
+            TTS
+          </div>
+          <div>
+            <div class="font-heading font-black text-white text-base uppercase tracking-tight leading-none">Pre-Built Transmissions</div>
+            <div class="font-body text-xs uppercase tracking-widest" style="color: #A8B2BC;">Truck Transmission Specialists</div>
+          </div>
+        </a>
+        <p class="font-body text-sm text-gray-400 leading-relaxed mb-5">
+          Orem's domestic truck transmission specialists. Prebuilt in-stock units, same-day service, and free 50-mile towing for Ford, Chevy/GMC, and Dodge/Ram trucks.
+        </p>
+        <!-- Trust badges -->
+        <div class="flex flex-wrap gap-2">
+          <span class="inline-block px-3 py-1 rounded text-xs font-heading font-bold uppercase text-white" style="background: rgba(232,107,0,0.2); border: 1px solid rgba(232,107,0,0.4);">In-Stock Units</span>
+          <span class="inline-block px-3 py-1 rounded text-xs font-heading font-bold uppercase text-white" style="background: rgba(232,107,0,0.2); border: 1px solid rgba(232,107,0,0.4);">1-Year Warranty</span>
+        </div>
+      </div>
+
+      <!-- Services Column -->
+      <div>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-widest text-white mb-5" style="border-bottom: 1px solid rgba(168,178,188,0.2); padding-bottom: 0.75rem;">Services</h4>
+        <ul class="flex flex-col gap-2">
+          {serviceLinks.map(link => (
+            <li>
+              <a href={link.href} class="font-body text-sm text-gray-400 hover:text-orange-400 transition-colors flex items-center gap-2">
+                <svg class="w-3 h-3 flex-shrink-0" fill="#E86B00" viewBox="0 0 8 8">
+                  <circle cx="4" cy="4" r="3" />
+                </svg>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact Column -->
+      <div>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-widest text-white mb-5" style="border-bottom: 1px solid rgba(168,178,188,0.2); padding-bottom: 0.75rem;">Contact</h4>
+        <ul class="flex flex-col gap-4">
+          <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="#E86B00" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <span class="font-body text-sm text-gray-400">80 W 500 N<br>Orem, UT 84057</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="#E86B00" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <div>
+              <a href="tel:+13854628458" class="font-body text-sm text-gray-400 hover:text-orange-400 transition-colors block">(385) 462-8458</a>
+              <a href="tel:+18333228458" class="font-body text-xs text-gray-500 hover:text-orange-400 transition-colors">24/7: (833) 322-8458</a>
+            </div>
+          </li>
+          <li>
+            <a href={`${BASE}/contact/`} class="inline-flex items-center gap-2 font-heading font-bold text-sm uppercase tracking-wider px-4 py-2 rounded transition-colors" style="background: rgba(232,107,0,0.2); border: 1px solid rgba(232,107,0,0.5); color: #FF8C2A;">
+              Schedule Service
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Hours Column -->
+      <div>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-widest text-white mb-5" style="border-bottom: 1px solid rgba(168,178,188,0.2); padding-bottom: 0.75rem;">Hours</h4>
+        <ul class="flex flex-col gap-2">
+          <li class="flex justify-between font-body text-sm">
+            <span class="text-gray-400">Mon–Fri</span>
+            <span class="text-white font-medium">8:00 AM – 5:00 PM</span>
+          </li>
+          <li class="flex justify-between font-body text-sm">
+            <span class="text-gray-400">Saturday</span>
+            <span class="text-gray-500">Closed</span>
+          </li>
+          <li class="flex justify-between font-body text-sm">
+            <span class="text-gray-400">Sunday</span>
+            <span class="text-gray-500">Closed</span>
+          </li>
+          <li class="mt-3 p-3 rounded-lg" style="background: rgba(232,107,0,0.1); border: 1px solid rgba(232,107,0,0.3);">
+            <div class="font-heading font-bold text-xs uppercase tracking-wider mb-1" style="color: #E86B00;">Emergency Line 24/7</div>
+            <a href="tel:+18333228458" class="font-body text-sm text-white hover:text-orange-400 transition-colors">(833) 322-8458</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t pt-8 flex flex-col sm:flex-row items-center justify-between gap-4" style="border-color: rgba(168,178,188,0.15);">
+      <p class="font-body text-sm text-gray-500">
+        &copy; {year} Pre-Built Transmissions / Truck Transmission Specialists. All rights reserved.
+      </p>
+      <p class="font-body text-xs text-gray-600">
+        Serving Orem, Provo, Utah Valley &amp; surrounding areas · Domestic Trucks Only
+      </p>
+    </div>
+  </div>
+</footer>

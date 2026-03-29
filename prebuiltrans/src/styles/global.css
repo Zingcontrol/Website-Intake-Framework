@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Barlow', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  body {
+    background-color: #F5F6F7;
+    color: #1B2838;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-orange hover:bg-brand-orange-dark text-white font-heading font-bold uppercase tracking-wider px-6 py-3 rounded transition-all duration-200 inline-flex items-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-2 border-white text-white hover:bg-white hover:text-brand-steel font-heading font-bold uppercase tracking-wider px-6 py-3 rounded transition-all duration-200 inline-flex items-center gap-2;
+  }
+
+  .btn-outline-orange {
+    @apply bg-transparent border-2 border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white font-heading font-bold uppercase tracking-wider px-6 py-3 rounded transition-all duration-200 inline-flex items-center gap-2;
+  }
+
+  .section-heading {
+    @apply font-heading font-black text-4xl md:text-5xl text-brand-steel uppercase tracking-tight;
+  }
+
+  .section-subheading {
+    @apply font-body text-lg text-gray-600 max-w-2xl;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-md overflow-hidden;
+  }
+}
+
+/* Announcement bar close button */
+#ann-bar {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 80px;
+  overflow: hidden;
+}
+#ann-bar.dismissed {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Scroll animations */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+[data-animate].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-animate][data-delay="100"] { transition-delay: 0.1s; }
+[data-animate][data-delay="200"] { transition-delay: 0.2s; }
+[data-animate][data-delay="300"] { transition-delay: 0.3s; }
+[data-animate][data-delay="400"] { transition-delay: 0.4s; }
+[data-animate][data-delay="500"] { transition-delay: 0.5s; }
+
+/* FAQ Accordion */
+details summary {
+  list-style: none;
+  cursor: pointer;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+.faq-icon {
+  transition: transform 0.2s ease;
+}
+
+/* Testimonial carousel */
+.carousel-track {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.carousel-item {
+  scroll-snap-align: start;
+}
+
+/* Mobile menu overlay */
+#mobile-menu {
+  display: none;
+}
+#mobile-menu.open {
+  display: flex;
+}

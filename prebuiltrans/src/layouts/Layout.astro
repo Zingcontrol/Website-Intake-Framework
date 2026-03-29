@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import StickyCTABar from '../components/StickyCTABar.astro';
+import ScrollAnimator from '../components/ScrollAnimator.astro';
+
+const BASE = import.meta.env.BASE_URL;
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  schema?: object;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Pre-Built Transmissions — Truck Transmission Specialists in Orem, UT. Prebuilt in-stock units, same-day service for Ford, Chevy/GMC & Dodge/Ram. Free 50-mile towing. Call (385) 462-8458.',
+  ogImage = 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1200&q=80',
+  schema,
+  noindex = false,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, 'https://zingcontrol.github.io').toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Pre-Built Transmissions" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href={`${BASE}/favicon.svg`} />
+
+    <!-- Fonts preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Schema.org JSON-LD -->
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+  </head>
+  <body class="font-body">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <StickyCTABar />
+    <ScrollAnimator />
+  </body>
+</html>

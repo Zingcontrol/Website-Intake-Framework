@@ -1,11 +1,8 @@
-name: Deploy All Sites
+name: Deploy All Demo Sites
 
 on:
   push:
     branches: [main]
-    paths:
-      - "coolbreeze-hvac/**"
-      - "apex-auto/**"
   workflow_dispatch:
 
 permissions:
@@ -14,67 +11,69 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Build CoolBreeze HVAC
-        working-directory: coolbreeze-hvac
+      - name: Build ZingGrow
+        working-directory: zinggrow
         run: npm install && npm run build
 
-      - name: Build Apex Auto
-        working-directory: apex-auto
+      - name: Build PreBuiltTrans
+        working-directory: prebuiltrans
         run: npm install && npm run build
 
-      - name: Combine dist folders
+      - name: Assemble _site
         run: |
-          mkdir -p _site/Website-Intake-Framework/coolbreeze-hvac
-          mkdir -p _site/Website-Intake-Framework/apex-auto
-          cp -r coolbreeze-hvac/dist/. _site/Website-Intake-Framework/coolbreeze-hvac/
-          cp -r apex-auto/dist/. _site/Website-Intake-Framework/apex-auto/
-          # Root index — redirect page listing both demos
-          cat > _site/index.html <<'EOF'
-          <!doctype html>
+          mkdir -p _site/Website-Intake-Framework/zinggrow
+          mkdir -p _site/Website-Intake-Framework/prebuiltrans
+          cp -r zinggrow/dist/. _site/Website-Intake-Framework/zinggrow/
+          cp -r prebuiltrans/dist/. _site/Website-Intake-Framework/prebuiltrans/
+          cat > _site/index.html << 'EOF'
+          <!DOCTYPE html>
           <html lang="en">
           <head>
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Zingcontrol Website Demos</title>
+            <title>Website Intake Framework — Demo Sites</title>
             <style>
-              body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-              .wrap { max-width: 480px; width: 100%; padding: 2rem; text-align: center; }
-              h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+              body { font-family: system-ui, sans-serif; background: #0D1B2A; color: #fff; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+              .wrap { max-width: 640px; width: 100%; padding: 2rem; }
+              h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: .5rem; }
               p { color: #94a3b8; margin-bottom: 2rem; }
               .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-              a { display: block; background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.25rem; color: #e2e8f0; text-decoration: none; transition: background 0.2s; }
-              a:hover { background: #334155; }
-              .label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 0.25rem; }
-              .name { font-weight: 700; }
-              .tag { font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; }
+              a { display: block; background: #1B2E45; border: 1px solid #2A3A4A; border-radius: 12px; padding: 1.5rem; color: #fff; text-decoration: none; transition: border-color .2s; }
+              a:hover { border-color: #F5820A; }
+              .label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #F5820A; margin-bottom: .4rem; }
+              .name { font-size: 1.1rem; font-weight: 800; margin-bottom: .25rem; }
+              .desc { font-size: .8rem; color: #94a3b8; }
             </style>
           </head>
           <body>
             <div class="wrap">
-              <h1>Zingcontrol Demo Sites</h1>
-              <p>Live demo builds from the Website Intake Framework.</p>
+              <h1>Website Intake Framework</h1>
+              <p>Demo staging sites — Orem, UT 84057 market</p>
               <div class="grid">
-                <a href="/Website-Intake-Framework/coolbreeze-hvac/">
-                  <div class="label">HVAC</div>
-                  <div class="name">CoolBreeze HVAC</div>
-                  <div class="tag">DFW · Plano, TX</div>
+                <a href="/Website-Intake-Framework/zinggrow/">
+                  <div class="label">SaaS / CRM</div>
+                  <div class="name">ZingGrow</div>
+                  <div class="desc">All-in-one CRM platform — 24yr, veteran-owned</div>
                 </a>
-                <a href="/Website-Intake-Framework/apex-auto/">
-                  <div class="label">Auto Service</div>
-                  <div class="name">Apex Auto</div>
-                  <div class="tag">DFW · Plano, TX</div>
+                <a href="/Website-Intake-Framework/prebuiltrans/">
+                  <div class="label">Transmission Specialist</div>
+                  <div class="name">Pre-Built Trans</div>
+                  <div class="desc">Domestic truck transmissions — same-day, free towing</div>
                 </a>
               </div>
             </div>
@@ -82,16 +81,17 @@ jobs:
           </html>
           EOF
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: _site/
+          path: _site
 
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

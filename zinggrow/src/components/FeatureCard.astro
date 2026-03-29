@@ -1,0 +1,114 @@
+---
+export interface Props {
+  slug: string;
+  title: string;
+  shortTitle: string;
+  description: string;
+  icon: string;
+  benefits: [string, string, string, string];
+  accent?: 'orange' | 'teal';
+}
+
+const {
+  slug,
+  title,
+  description,
+  icon,
+  benefits,
+  accent = 'teal',
+} = Astro.props;
+
+const isOrange = accent === 'orange';
+const isDifferentiator = slug === 'onboarding' || slug === 'support';
+---
+
+<div
+  class:list={[
+    'group relative rounded-2xl p-7 border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+    isDifferentiator
+      ? 'bg-brand-navy border-brand-orange/30 hover:border-brand-orange/60 hover:shadow-brand-orange/10'
+      : 'bg-white border-gray-100 hover:border-brand-teal/40 hover:shadow-brand-teal/10',
+  ]}
+>
+  <!-- Differentiator badge -->
+  {isDifferentiator && (
+    <div class="absolute -top-3 left-6">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange text-white text-xs font-bold shadow-md">
+        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+        Zing Differentiator
+      </span>
+    </div>
+  )}
+
+  <!-- Icon -->
+  <div
+    class:list={[
+      'w-12 h-12 rounded-xl flex items-center justify-center mb-5',
+      isDifferentiator
+        ? 'bg-brand-orange/20'
+        : isOrange
+        ? 'bg-brand-orange/10'
+        : 'bg-brand-teal/10',
+    ]}
+  >
+    <svg
+      class:list={[
+        'w-6 h-6',
+        isDifferentiator
+          ? 'text-brand-orange-light'
+          : isOrange
+          ? 'text-brand-orange'
+          : 'text-brand-teal',
+      ]}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="1.8"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d={icon}/>
+    </svg>
+  </div>
+
+  <!-- Title & description -->
+  <h3
+    class:list={[
+      'font-bold text-lg mb-3 leading-snug',
+      isDifferentiator ? 'text-white' : 'text-brand-navy',
+    ]}
+  >
+    {title}
+  </h3>
+  <p
+    class:list={[
+      'text-sm leading-relaxed mb-5',
+      isDifferentiator ? 'text-white/65' : 'text-gray-500',
+    ]}
+  >
+    {description}
+  </p>
+
+  <!-- Benefits list -->
+  <ul class="space-y-2">
+    {benefits.map((benefit) => (
+      <li class="flex items-start gap-2.5 text-sm">
+        <svg
+          class:list={[
+            'w-4 h-4 flex-shrink-0 mt-0.5',
+            isDifferentiator ? 'text-brand-orange-light' : 'text-brand-teal',
+          ]}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span class:list={[isDifferentiator ? 'text-white/75' : 'text-gray-600']}>
+          {benefit}
+        </span>
+      </li>
+    ))}
+  </ul>
+</div>
